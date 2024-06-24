@@ -49,7 +49,8 @@ export default function AlexScripts() {
         <>
             <h1>Interfaces With No BPDU Guard:</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" name="someText" value={someText} onChange={handleTextChange} />
+                <input type="text" name="someText" value={someText} onChange={handleTextChange} 
+                style={{width: '700px', height: '500'}}/>
                 <button type="submit">Submit</button>
             </form>
             <h2>Interfaces to Check!!</h2>
