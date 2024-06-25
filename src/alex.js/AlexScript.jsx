@@ -28,7 +28,9 @@ export default function AlexScripts() {
             console.log(`Processing: ${valueString}`);
 
             // Regular expression to match substrings between "interface" and "!"
-            const regex = /interface.*?!/g;
+            const regex = /interface (GigabitEthernet\d+\/\d+\/\d+|GigabitEthernet\d+\/\d+|TenGigabitEthernet\d+\/\d+\/\d+|TwentyFiveGigabitEthernet\d+\/\d+\/\d+|HundredGigabitEthernet\d+\/\d+\/\d+).*?!/g;
+
+           // const regex = /interface.*?!/g;
             const matches = valueString.match(regex);
 
             if (matches) {
@@ -36,14 +38,16 @@ export default function AlexScripts() {
                     newInterfaceArray.push(match);
                 });
 
+
                 newInterfaceArray.forEach((interfaceStr) => {
                     if (interfaceStr.includes("switchport mode access") && 
                         !interfaceStr.includes("spanning-tree bpduguard enable")) {
                         noBpduguard.push(interfaceStr);
+                       
                     }
                 });
-
-                console.log(noBpduguard);
+console.log(noBpduguard);
+               
             }
         }
 
@@ -58,7 +62,9 @@ export default function AlexScripts() {
 
     const extractInterfaceNames = (interfaces) => {
         return interfaces.map((interfaceStr) => {
-            const match = interfaceStr.match(/interface\s+GigabitEthernet\d+\/\d+\/\d+/);
+            const match = interfaceStr.match(/interface (GigabitEthernet\d+\/\d+\/\d+|GigabitEthernet\d+\/\d+|TenGigabitEthernet\d+\/\d+\/\d+|TwentyFiveGigabitEthernet\d+\/\d+\/\d+|HundredGigabitEthernet\d+\/\d+\/\d+)/);
+
+            //const match = interfaceStr.match(/interface\s+GigabitEthernet\d+\/\d+\/\d+/);
             return match ? match[0] : '';
         }).filter(Boolean); // Remove empty strings
     }
